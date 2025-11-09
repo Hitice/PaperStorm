@@ -140,3 +140,7 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
 .angular/
+
+
+src/environments/environment.ts
+src/environments/environment.prod.ts
