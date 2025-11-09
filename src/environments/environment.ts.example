@@ -5,9 +5,9 @@
 export const environment = {
   production: false,
    firebaseConfig : {
-    apiKey: "AIzaSyAuNEaISENaiGKGzVx7qTD1f85uFJnk4nk",
-    authDomain: "fintech-g.firebaseapp.com",
-    projectId: "fintech-g",
+    apiKey: "SAMPLE_API_KEY",
+    authDomain: "sample-project.firebaseapp.com",
+    projectId: "sample-project",
     storageBucket: "fintech-g.firebasestorage.app",
     messagingSenderId: "398803270389",
     appId: "1:398803270389:web:22afcf027fc8adc921a3bc",
