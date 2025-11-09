@@ -1,16 +1,16 @@
 // src/app/app-routing.module.ts
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AngularFireAuthGuard, redirectUnauthorizedTo } from '@angular/fire/compat/auth-guard';
+
+// If user is not authenticated, send to landing
+const redirectUnauthorizedToLanding = () => redirectUnauthorizedTo(['landing']);
 
 const routes: Routes = [
-  // -----------------------------------------------------------------
-  // Root redirect
-  // -----------------------------------------------------------------
+  // Root -> show landing page (explicit user action to go to login)
   { path: '', redirectTo: 'landing', pathMatch: 'full' },
 
-  // -----------------------------------------------------------------
-  // Auth / On-boarding pages
-  // -----------------------------------------------------------------
+  // Auth / Onboarding pages
   {
     path: 'landing',
     loadChildren: () =>
@@ -46,69 +46,24 @@ const routes: Routes = [
       ),
   },
 
-  // -----------------------------------------------------------------
-  // Feature modules (lazy-loaded)
-  // -----------------------------------------------------------------
+  // Main App (Tabs layout) — protected: unauth users -> landing
   {
-    path: 'register',
+    path: 'tabs',
     loadChildren: () =>
-      import('./features/register/register.module').then(
-        m => m.RegisterPageModule
-      ),
-  },
-  {
-    path: 'income',
-    loadChildren: () =>
-      import('./features/income/income.module').then(
-        m => m.IncomePageModule
-      ),
-  },
-  {
-    path: 'expense',
-    loadChildren: () =>
-      import('./features/expense/expense.module').then(
-        m => m.ExpensePageModule
-      ),
-  },
-  {
-    path: 'dashboard',
-    loadChildren: () =>
-      import('./features/dashboard/dashboard.module').then(
-        m => m.DashboardPageModule
-      ),
-  },
-  {
-    path: 'flow',
-    loadChildren: () =>
-      import('./features/flow/flow.module').then(
-        m => m.FlowPageModule
-      ),
+      import('./features/tabs/tabs.module').then(m => m.TabsPageModule),
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLanding },
   },
 
-  // -----------------------------------------------------------------
-  // 404 – any unknown route goes back to landing
-  // -----------------------------------------------------------------
+  // Extra modules (outside Tabs)
+  {
+    path: 'panel',
+    loadChildren: () =>
+      import('./features/panel/panel.module').then(m => m.PanelPageModule),
+  },
+
+  // Fallback – any unknown route redirects to landing
   { path: '**', redirectTo: 'landing' },
-  {
-    path: 'income',
-    loadChildren: () => import('./features/income/income.module').then( m => m.IncomePageModule)
-  },
-  {
-    path: 'expense',
-    loadChildren: () => import('./features/expense/expense.module').then( m => m.ExpensePageModule)
-  },
-  {
-    path: 'dashboard',
-    loadChildren: () => import('./features/dashboard/dashboard.module').then( m => m.DashboardPageModule)
-  },
-  {
-    path: 'flow',
-    loadChildren: () => import('./features/flow/flow.module').then( m => m.FlowPageModule)
-  },
-  {
-    path: 'register',
-    loadChildren: () => import('./features/register/register.module').then( m => m.RegisterPageModule)
-  },
 ];
 
 @NgModule({

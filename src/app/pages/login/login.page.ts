@@ -10,7 +10,7 @@ import { AlertController, LoadingController, ToastController } from '@ionic/angu
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  ionicForm: FormGroup;
+  ionicForm!: FormGroup;
 
   constructor(
     private toastController: ToastController,
@@ -18,7 +18,7 @@ export class LoginPage implements OnInit {
     private loadingController: LoadingController,
     private authService: AuthServiceService,
     private router: Router,
-    public formBuilder: FormBuilder
+    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit() {
@@ -27,10 +27,10 @@ export class LoginPage implements OnInit {
         '',
         [
           Validators.required,
-          Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$'),
+          Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$'),
         ],
       ],
-      password: ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
 
@@ -41,26 +41,24 @@ export class LoginPage implements OnInit {
     const loading = await this.loadingController.create({ message: 'Logging in...' });
     await loading.present();
 
-    if (this.ionicForm.valid) {
-      try {
-        const user = await this.authService.loginUser(
-          this.ionicForm.value.email,
-          this.ionicForm.value.password
-        );
-        await loading.dismiss();
-
-        if (user) {
-          this.presentToast('Login successful!');
-          this.router.navigate(['/journals']);
-        }
-      } catch (err: any) {
-        await loading.dismiss();
-        this.presentToast(err.message || 'Login failed.');
-        console.error(err);
-      }
-    } else {
+    if (!this.ionicForm.valid) {
       await loading.dismiss();
-      this.presentToast('Please fill in all required fields.');
+      return this.presentToast('Please fill in all required fields.');
+    }
+
+    try {
+      const { email, password } = this.ionicForm.value;
+      const user = await this.authService.loginUser(email, password);
+      await loading.dismiss();
+
+      if (user) {
+        await this.presentToast('Login successful!');
+        this.router.navigate(['/tabs/dashboard']);
+      }
+    } catch (err: any) {
+      await loading.dismiss();
+      console.error('Login error:', err);
+      this.presentToast(err.message || 'Login failed. Please try again.');
     }
   }
 
@@ -76,8 +74,8 @@ export class LoginPage implements OnInit {
       await loading.dismiss();
 
       if (user) {
-        this.presentToast(`Welcome ${user.displayName || 'User'}!`);
-        this.router.navigate(['/journals']);
+        await this.presentToast(`Welcome ${user.displayName || 'User'}!`);
+        this.router.navigate(['/tabs/dashboard']);
       }
     } catch (err: any) {
       await loading.dismiss();
@@ -98,8 +96,8 @@ export class LoginPage implements OnInit {
       await loading.dismiss();
 
       if (user) {
-        this.presentToast(`Welcome ${user.displayName || 'User'}!`);
-        this.router.navigate(['/journals']);
+        await this.presentToast(`Welcome ${user.displayName || 'User'}!`);
+        this.router.navigate(['/tabs/dashboard']);
       }
     } catch (err: any) {
       await loading.dismiss();

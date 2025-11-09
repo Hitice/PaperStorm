@@ -1,13 +1,22 @@
+<ion-content fullscreen>
+  <div class="landing-container ion-padding">
+    <img src="assets/img/logo.svg" alt="App Logo" class="logo" />
 
-<ion-content [fullscreen]="true">
-  <div class="container">
-    <ion-img src="assets/bg.png"/>
-    <ion-title>Explore the world </ion-title>
+    <h1 class="title">Welcome to <br> PaperStorm</h1>
+    <p class="subtitle">
+      Manage your income, expenses, and goals — all in one place.
+    </p>
+
+    <ion-button expand="block" color="primary" (click)="goToLogin()">
+      Log In
+    </ion-button>
+
+    <ion-button expand="block" fill="outline" color="medium" (click)="goToSignup()">
+      Create Account
+    </ion-button>
+
+    <p class="footer-text">
+      By continuing, you agree to our <a href="#">Terms</a> and <a href="#">Privacy Policy</a>.
+    </p>
   </div>
-  
-  <ion-fab  vertical="bottom" horizontal="end" style="margin-bottom: 30px;" >
-    <ion-fab-button [routerLink]="['/login']"  >
-      <ion-icon name="chevron-forward"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
 </ion-content>

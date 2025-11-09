@@ -1,9 +1,13 @@
+import { Timestamp } from '@angular/fire/firestore';
+
 export interface Transaction {
   id?: string;
-  tipo: 'entrada' | 'saida';
-  descricao: string;
-  conta: string;
-  valor: number;
-  data: string;
-  status?: 'pendente' | 'pago';
+  userId?: string;
+  type: 'income' | 'expense';
+  amount: number;
+  category: string;
+  description?: string;
+  date: Timestamp;
+  createdAt?: Timestamp;
+  updatedAt?: Timestamp;
 }
