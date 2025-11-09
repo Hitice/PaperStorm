@@ -4,14 +4,14 @@
 
 export const environment = {
   production: false,
-   firebaseConfig : {
+  firebaseConfig: {
     apiKey: "SAMPLE_API_KEY",
     authDomain: "sample-project.firebaseapp.com",
     projectId: "sample-project",
-    storageBucket: "fintech-g.firebasestorage.app",
-    messagingSenderId: "398803270389",
-    appId: "1:398803270389:web:22afcf027fc8adc921a3bc",
-    measurementId: "G-ET7400M0EQ"
+    storageBucket: "sample-project.appspot.com",
+    messagingSenderId: "000000000000",
+    appId: "1:000000000000:web:0000000000000000000000",
+    measurementId: "G-SAMPLEMEASUREMENTID"
   }
 };
 
