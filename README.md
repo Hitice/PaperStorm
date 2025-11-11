@@ -11,6 +11,14 @@ Users can:
 
 The application is designed for professionals and small businesses requiring reliable, structured financial control.
 
+(O PaperStorm é um aplicativo híbrido profissional para controle de despesas e receitas, desenvolvido com Angular 13, Ionic 7 e Firebase. Compatível com web e dispositivos móveis (Android/iOS), oferece funcionamento offline-first através do Firestore.
+Principais recursos:
+- Cadastro de entradas e saídas
+- Painel financeiro em tempo real
+- Acompanhamento do fluxo de transações
+- Autenticação segura por e-mail e senha
+Voltado para profissionais e pequenas empresas que buscam um controle financeiro confiável e estruturado.)
+
 ## Technologies
 - Angular 13 (NgModules)
 - Ionic 7 (Capacitor)
@@ -50,7 +58,7 @@ src/
 ## Setup
 1. Clone the repository  
    ```bash
-   git clone https://github.com/YOUR_USERNAME/PaperStorm.git
+   git clone https://github.com/Hitice/PaperStorm.git
    cd PaperStorm
    ```
 
@@ -97,5 +105,5 @@ Never commit `environment.ts` or `environment.prod.ts`.
 MIT License – see `LICENSE` file.
 
 ---
-Maintained by Ghost  
+Maintained by Hitice  
 Last updated: November 2025
