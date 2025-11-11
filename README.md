@@ -11,7 +11,7 @@ Users can:
 
 The application is designed for professionals and small businesses requiring reliable, structured financial control.
 
-<p style="font-size: 12px; font-weight: 300; font-style: italic;">
+<p style="font-size: 9px; font-weight: 100; font-style: italic;">
 O <b>PaperStorm</b> é um aplicativo híbrido profissional para controle de despesas e receitas, desenvolvido com <b>Angular 13</b>, <b>Ionic 7</b> e <b>Firebase</b>. Compatível com <b>web e dispositivos móveis (Android/iOS)</b>, oferece funcionamento <b>offline-first</b> através do Firestore.
 <br><br>
 Principais recursos:
