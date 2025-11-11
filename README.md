@@ -11,13 +11,17 @@ Users can:
 
 The application is designed for professionals and small businesses requiring reliable, structured financial control.
 
-(O PaperStorm é um aplicativo híbrido profissional para controle de despesas e receitas, desenvolvido com Angular 13, Ionic 7 e Firebase. Compatível com web e dispositivos móveis (Android/iOS), oferece funcionamento offline-first através do Firestore.
+<p style="font-size: 12px; font-weight: 300; font-style: italic;">
+O <b>PaperStorm</b> é um aplicativo híbrido profissional para controle de despesas e receitas, desenvolvido com <b>Angular 13</b>, <b>Ionic 7</b> e <b>Firebase</b>. Compatível com <b>web e dispositivos móveis (Android/iOS)</b>, oferece funcionamento <b>offline-first</b> através do Firestore.
+<br><br>
 Principais recursos:
-- Cadastro de entradas e saídas
-- Painel financeiro em tempo real
-- Acompanhamento do fluxo de transações
-- Autenticação segura por e-mail e senha
-Voltado para profissionais e pequenas empresas que buscam um controle financeiro confiável e estruturado.)
+<br>- Cadastro de entradas e saídas
+<br>- Painel financeiro em tempo real
+<br>- Acompanhamento do fluxo de transações
+<br>- Autenticação segura por e-mail e senha
+<br><br>
+Voltado para <b>profissionais e pequenas empresas</b> que buscam um controle financeiro confiável e estruturado.
+</p>
 
 ## Technologies
 - Angular 13 (NgModules)
