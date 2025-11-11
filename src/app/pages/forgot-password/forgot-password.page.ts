@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthServiceService } from 'src/app/core/services/auth.service';
+import { AuthServiceService } from 'src/app/services/auth-service.service';
+
 import { ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
@@ -9,28 +10,32 @@ import { Router } from '@angular/router';
   styleUrls: ['./forgot-password.page.scss'],
 })
 export class ForgotPasswordPage implements OnInit {
-email:any
-  constructor(private authService:AuthServiceService,private toastController: ToastController,private router: Router) { }
+  email: string = '';
 
-  ngOnInit() {
+  constructor(
+    private authService: AuthServiceService,
+    private toastController: ToastController,
+    private router: Router
+  ) {}
+
+  ngOnInit() {}
+
+  async reset() {
+    try {
+      await this.authService.resetPassword(this.email);
+      this.presentToast('Seu link de redefinição foi enviado para o e-mail informado.');
+    } catch {
+      this.presentToast('Erro ao enviar link de redefinição.');
+    }
   }
 
-  reset(){
-    this.authService.resetPassword(this.email).then( () =>{      
-      console.log('sent'); //show confirmation dialog
-      this.presentToast()
-    })
-  }
-  async presentToast() {
+  async presentToast(message: string) {
     const toast = await this.toastController.create({
-      message: 'Your reset password link has been sent on your email',
-      duration: 2000, // Duration in milliseconds
-      position: 'bottom' // Position of the toast (top, bottom, middle)
+      message,
+      duration: 2000,
+      position: 'bottom',
     });
-  
-    toast.present();
-    toast.onDidDismiss().then(()=>{
-      this.router.navigate(['/login']);
-    })
+    await toast.present();
+    toast.onDidDismiss().then(() => this.router.navigate(['/login']));
   }
 }

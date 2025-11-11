@@ -1,22 +1,35 @@
-<ion-content fullscreen>
-  <div class="landing-container ion-padding">
-    <img src="assets/img/logo.svg" alt="App Logo" class="logo" />
+<ion-content [fullscreen]="true" class="landing-page ion-text-center">
+  <div class="landing-container ion-padding animate-page">
 
-    <h1 class="title">Welcome to <br> PaperStorm</h1>
+    <!-- Logo adaptável -->
+    <img src="assets/icon/logo-light.png" alt="Logo" class="logo logo-light" />
+    <img src="assets/icon/logo-dark.png" alt="Logo Dark" class="logo logo-dark" />
+
+    <!-- Título e descrição -->
+    <h1 class="title">Bem-vindo ao PaperStorm</h1>
     <p class="subtitle">
-      Manage your income, expenses, and goals — all in one place.
+      Acompanhe seus ganhos, gastos e metas — tudo em um só lugar.
     </p>
 
-    <ion-button expand="block" color="primary" (click)="goToLogin()">
-      Log In
-    </ion-button>
+    <!-- Botões principais -->
+    <div class="action-buttons animate-fade-in">
+      <ion-button expand="block" color="primary" shape="round" (click)="goToLogin()">
+        Entrar
+      </ion-button>
+      <ion-button expand="block" fill="outline" color="medium" shape="round" (click)="goToSignup()">
+        Criar Conta
+      </ion-button>
+    </div>
 
-    <ion-button expand="block" fill="outline" color="medium" (click)="goToSignup()">
-      Create Account
-    </ion-button>
-
-    <p class="footer-text">
-      By continuing, you agree to our <a href="#">Terms</a> and <a href="#">Privacy Policy</a>.
+    <!-- Termos -->
+    <p class="footer-text animate-fade-in">
+      Ao continuar, você concorda com nossos
+      <a href="#">Termos</a> e <a href="#">Política de Privacidade</a>.
     </p>
+
+    <!-- Informações -->
+    <div class="app-info animate-fade-in">
+      <p>© Catech Technologies - P2.0.8</p>
+    </div>
   </div>
 </ion-content>

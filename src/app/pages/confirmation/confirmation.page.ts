@@ -6,10 +6,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./confirmation.page.scss'],
 })
 export class ConfirmationPage implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  constructor() {}
+  ngOnInit() {}
 }

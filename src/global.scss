@@ -1,26 +1,149 @@
-/*
- * App Global CSS
- * ----------------------------------------------------------------------------
- * Put style rules here that you want to apply globally. These styles are for
- * the entire app and not just one component. Additionally, this file can be
- * used as an entry point to import other CSS/Sass files to be included in the
- * output CSS.
- * For more information on global stylesheets, visit the documentation:
- * https://ionicframework.com/docs/layout/global-stylesheets
- */
+/* =========================================
+   🌗 Tema Global Ionic (Claro / Escuro)
+   ========================================= */
 
-/* Core CSS required for Ionic components to work properly */
+/* Importações padrão do Ionic */
 @import "@ionic/angular/css/core.css";
-
-/* Basic CSS for apps built with Ionic */
 @import "@ionic/angular/css/normalize.css";
 @import "@ionic/angular/css/structure.css";
 @import "@ionic/angular/css/typography.css";
-@import '@ionic/angular/css/display.css';
-
-/* Optional CSS utils that can be commented out */
+@import "@ionic/angular/css/display.css";
 @import "@ionic/angular/css/padding.css";
+@import "@ionic/angular/css/flex-utils.css";
 @import "@ionic/angular/css/float-elements.css";
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
-@import "@ionic/angular/css/flex-utils.css";
+
+/* ------------------------------
+   Fonte principal
+--------------------------------*/
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --ion-font-family: 'Inter', sans-serif;
+
+  /* Cores tema claro */
+  --ion-color-primary: #7e3ff2;
+  --ion-color-primary-rgb: 126, 63, 242;
+  --ion-color-secondary: #a079ff;
+  --ion-color-tertiary: #f1e4ff;
+  --ion-color-light: #f8f9fc;
+  --ion-color-medium: #888;
+  --ion-color-dark: #1c1b1f;
+  --ion-background-color: var(--ion-color-light);
+  --ion-text-color: #1c1b1f;
+
+  /* Transições suaves */
+  --transition-fast: 0.25s ease-in-out;
+}
+
+body {
+  font-family: var(--ion-font-family);
+  background: var(--ion-background-color);
+  color: var(--ion-text-color);
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+/* ------------------------------
+   Modo Escuro
+--------------------------------*/
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ion-color-primary: #b07bff;
+    --ion-color-primary-rgb: 176, 123, 255;
+    --ion-color-secondary: #8658e5;
+    --ion-color-tertiary: #2c2640;
+    --ion-color-light: #1a1825;
+    --ion-color-medium: #aaa;
+    --ion-color-dark: #f1e4ff;
+    --ion-background-color: #0e0c15;
+    --ion-text-color: #eaeaea;
+  }
+
+  body {
+    background: var(--ion-background-color);
+    color: var(--ion-text-color);
+  }
+
+  ion-content {
+    --background: var(--ion-background-color);
+  }
+
+  /* Alterna logo no modo escuro */
+  .logo-light {
+    display: none !important;
+  }
+
+  .logo-dark {
+    display: block !important;
+  }
+}
+
+/* ------------------------------
+   Layouts e containers globais
+--------------------------------*/
+ion-header, ion-toolbar {
+  background: var(--ion-background-color);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  transition: var(--transition-fast);
+}
+
+ion-title {
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: var(--ion-color-primary);
+}
+
+ion-button {
+  --border-radius: 12px;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  transition: transform 0.2s ease;
+}
+ion-button:hover {
+  transform: translateY(-1px);
+}
+
+/* ------------------------------
+   Cartões e listas
+--------------------------------*/
+ion-card {
+  background: var(--ion-background-color);
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  transition: background var(--transition-fast), transform 0.2s;
+}
+ion-card:hover {
+  transform: translateY(-2px);
+}
+
+/* ------------------------------
+   Logotipos
+--------------------------------*/
+.logo-light {
+  display: block;
+  height: 36px;
+  transition: opacity 0.3s ease;
+}
+
+.logo-dark {
+  display: none;
+  height: 36px;
+  transition: opacity 0.3s ease;
+}
+
+/* ------------------------------
+   Scrollbar custom
+--------------------------------*/
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--ion-color-primary);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ion-color-secondary);
+}

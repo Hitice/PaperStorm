@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthServiceService } from 'src/app/core/services/auth.service';
+import { AuthServiceService } from 'src/app/services/auth-service.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoadingController, ToastController } from '@ionic/angular';
+import { FirebaseError } from '@angular/fire/app';
 
 @Component({
   selector: 'app-signup',
@@ -23,30 +24,15 @@ export class SignupPage implements OnInit {
   ngOnInit() {
     this.ionicForm = this.formBuilder.group({
       fullname: ['', [Validators.required]],
-      contact: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern('^[0-9]*$'),
-          Validators.minLength(10),
-        ],
-      ],
-      email: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$'),
-        ],
-      ],
+      email: ['', [Validators.required, Validators.email]],
       password: [
         '',
         [
-          Validators.pattern(
-            '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-8])(?=.*[$@$!%*?&])[A-Za-z\\d$@$!%*?&].{8,}'
-          ),
           Validators.required,
+          Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@!%*?&]).{8,}'),
         ],
       ],
+      contact: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(10)]],
     });
   }
 
@@ -54,80 +40,78 @@ export class SignupPage implements OnInit {
     return this.ionicForm.controls;
   }
 
-  // -------------------------
-  // 🔹 Cadastro tradicional
-  // -------------------------
   async signUP() {
-    const loading = await this.loadingController.create();
+    const loading = await this.loadingController.create({ message: 'Criando conta...' });
     await loading.present();
 
-    if (this.ionicForm.valid) {
-      const user = await this.authService
-        .registerUser(
-          this.ionicForm.value.email,
-          this.ionicForm.value.password,
-          this.ionicForm.value.fullname
-        )
-        .catch((err) => {
-          this.presentToast(err.message || err);
-          console.log(err);
-          loading.dismiss();
-        });
+    try {
+      if (!this.ionicForm.valid) throw new Error('Preencha todos os campos corretamente.');
+      const { email, password, fullname } = this.ionicForm.value;
+      await this.authService.registerUser(email, password, fullname);
 
-      if (user) {
-        loading.dismiss();
-        this.router.navigate(['/home']);
-      }
-    } else {
       await loading.dismiss();
-      this.presentToast('Please fill in all required fields');
+      this.presentToast('Conta criada com sucesso. Verifique seu e-mail.');
+      this.router.navigate(['/verify']);
+    } catch (err: any) {
+      await loading.dismiss();
+      this.presentToast(this.getErrorMessage(err));
     }
   }
 
-  // -------------------------
-  // 🔹 Login social
-  // -------------------------
   async signUpWithGoogle() {
-    const loading = await this.loadingController.create();
+    const loading = await this.loadingController.create({ message: 'Conectando com Google...' });
     await loading.present();
-
-    this.authService
-      .loginWithGoogle()
-      .then(() => {
-        loading.dismiss();
-        this.router.navigate(['/home']);
-      })
-      .catch((err) => {
-        loading.dismiss();
-        this.presentToast(err.message || 'Google Sign-In failed');
-      });
+    try {
+      await this.authService.loginWithGoogle();
+      await loading.dismiss();
+      this.router.navigate(['/home']);
+    } catch (err: any) {
+      await loading.dismiss();
+      this.presentToast(this.getErrorMessage(err));
+    }
   }
 
   async signUpWithApple() {
-    const loading = await this.loadingController.create();
+    const loading = await this.loadingController.create({ message: 'Conectando com Apple...' });
     await loading.present();
-
-    this.authService
-      .loginWithApple()
-      .then(() => {
-        loading.dismiss();
-        this.router.navigate(['/home']);
-      })
-      .catch((err) => {
-        loading.dismiss();
-        this.presentToast(err.message || 'Apple Sign-In failed');
-      });
+    try {
+      await this.authService.loginWithApple();
+      await loading.dismiss();
+      this.router.navigate(['/home']);
+    } catch (err: any) {
+      await loading.dismiss();
+      this.presentToast(this.getErrorMessage(err));
+    }
   }
 
-  // -------------------------
-  // 🔹 Toast helper
-  // -------------------------
+  getErrorMessage(error: any): string {
+    if (error instanceof FirebaseError) {
+      switch (error.code) {
+        case 'auth/email-already-in-use':
+          return 'Este e-mail já está em uso.';
+        case 'auth/invalid-email':
+          return 'E-mail inválido.';
+        case 'auth/weak-password':
+          return 'A senha deve ter pelo menos 8 caracteres e conter letras maiúsculas, minúsculas, número e símbolo.';
+        case 'auth/popup-closed-by-user':
+          return 'Janela de login fechada antes de finalizar.';
+        case 'auth/user-disabled':
+          return 'Esta conta foi desativada.';
+        case 'auth/network-request-failed':
+          return 'Falha de conexão. Verifique sua internet.';
+        default:
+          return 'Erro desconhecido: ' + error.message;
+      }
+    }
+    return error.message || 'Erro inesperado.';
+  }
+
   async presentToast(message: string) {
     const toast = await this.toastController.create({
       message,
-      duration: 1500,
+      duration: 2500,
       position: 'top',
-      color: 'danger',
+      color: 'dark',
     });
     await toast.present();
   }

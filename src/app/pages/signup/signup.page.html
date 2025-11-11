@@ -1,132 +1,83 @@
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="signup-page">
   <div class="header ion-text-center ion-padding">
     <ion-title class="title" size="large">Get Started</ion-title>
     <p class="subtitle">By creating an account</p>
   </div>
 
-  <form [formGroup]="ionicForm" novalidate>
-    <div class="ion-padding">
-      <!-- Fullname -->
-      <ion-item>
-        <ion-icon slot="start" name="person-outline"></ion-icon>
-        <ion-input
-          formControlName="fullname"
-          placeholder="Full name"
-          class="input">
-        </ion-input>
-      </ion-item>
+  <form [formGroup]="ionicForm" novalidate class="ion-padding">
 
-      <div
-        *ngIf="ionicForm.controls['fullname'].touched && ionicForm.controls['fullname'].invalid">
-        <ion-text *ngIf="errorControl.fullname.errors?.required" color="danger">
-          Full name is required.
-        </ion-text>
-      </div>
+    <!-- Fullname -->
+    <ion-item lines="inset" class="input-item">
+      <ion-icon slot="start" name="person-outline"></ion-icon>
+      <ion-input formControlName="fullname" placeholder="Full name"></ion-input>
+    </ion-item>
+    <ion-text
+      *ngIf="ionicForm.controls['fullname'].touched && ionicForm.controls['fullname'].invalid"
+      color="danger">
+      <small *ngIf="errorControl.fullname.errors?.required">Full name is required.</small>
+    </ion-text>
 
-      <!-- Email -->
-      <ion-item>
-        <ion-icon slot="start" name="mail-outline"></ion-icon>
-        <ion-input
-          formControlName="email"
-          placeholder="Email"
-          class="input">
-        </ion-input>
-      </ion-item>
+    <!-- Email -->
+    <ion-item lines="inset" class="input-item ion-margin-top">
+      <ion-icon slot="start" name="mail-outline"></ion-icon>
+      <ion-input formControlName="email" placeholder="Email"></ion-input>
+    </ion-item>
+    <ion-text
+      *ngIf="ionicForm.controls['email'].touched && ionicForm.controls['email'].invalid"
+      color="danger">
+      <small *ngIf="errorControl.email.errors?.required">Email is required.</small>
+      <small *ngIf="errorControl.email.errors?.pattern">Invalid email format.</small>
+    </ion-text>
 
-      <div
-        *ngIf="ionicForm.controls['email'].touched && ionicForm.controls['email'].invalid">
-        <ion-text *ngIf="errorControl.email.errors?.required" color="danger">
-          Email is required.
-        </ion-text>
-        <ion-text *ngIf="errorControl.email.errors?.pattern" color="danger">
-          Invalid email format.
-        </ion-text>
-      </div>
+    <!-- Password -->
+    <ion-item lines="inset" class="input-item ion-margin-top">
+      <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
+      <ion-input type="password" formControlName="password" placeholder="Password"></ion-input>
+    </ion-item>
+    <ion-text
+      *ngIf="ionicForm.controls['password'].touched && ionicForm.controls['password'].invalid"
+      color="danger">
+      <small>Password is required.</small>
+    </ion-text>
 
-      <!-- Password -->
-      <ion-item>
-        <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
-        <ion-input
-          type="password"
-          formControlName="password"
-          placeholder="Password"
-          class="input">
-        </ion-input>
-      </ion-item>
+    <!-- Contact -->
+    <ion-item lines="inset" class="input-item ion-margin-top">
+      <ion-icon slot="start" name="call-outline"></ion-icon>
+      <ion-input type="tel" formControlName="contact" placeholder="Contact number"></ion-input>
+    </ion-item>
+    <ion-text
+      *ngIf="ionicForm.controls['contact'].touched && ionicForm.controls['contact'].invalid"
+      color="danger">
+      <small *ngIf="errorControl.contact.errors?.required">Contact is required.</small>
+      <small *ngIf="errorControl.contact.errors?.pattern">Contact should contain only numbers.</small>
+    </ion-text>
 
-      <div
-        *ngIf="ionicForm.controls['password'].touched && ionicForm.controls['password'].invalid">
-        <ion-text *ngIf="errorControl.password.errors?.required" color="danger">
-          Password is required.
-        </ion-text>
-      </div>
-
-      <!-- Contact -->
-      <ion-item>
-        <ion-icon slot="start" name="call-outline"></ion-icon>
-        <ion-input
-          type="tel"
-          formControlName="contact"
-          placeholder="Contact number"
-          class="input">
-        </ion-input>
-      </ion-item>
-
-      <div
-        *ngIf="ionicForm.controls['contact'].touched && ionicForm.controls['contact'].invalid">
-        <ion-text *ngIf="errorControl.contact.errors?.required" color="danger">
-          Contact is required.
-        </ion-text>
-        <ion-text *ngIf="errorControl.contact.errors?.pattern" color="danger">
-          Contact should contain only numbers.
-        </ion-text>
-      </div>
-
-      <!-- Botões sociais -->
-      <div class="social-login ion-text-center ion-margin-vertical">
-        <p class="subtitle">Or continue with</p>
-
-        <ion-button
-          expand="block"
-          color="light"
-          shape="round"
-          (click)="signUpWithGoogle()">
-          <ion-icon
-            slot="start"
-            src="assets/icons/google.svg"
-            style="width: 20px; height: 20px;">
-          </ion-icon>
-          Continue with Google
-        </ion-button>
-
-        <ion-button
-          expand="block"
-          color="dark"
-          shape="round"
-          (click)="signUpWithApple()">
-          <ion-icon slot="start" name="logo-apple"></ion-icon>
-          Continue with Apple
-        </ion-button>
-      </div>
-
-      <!-- Link login -->
-      <div class="loginLink ion-text-center">
-        <p>
-          Already a member?
-          <a [routerLink]="['/login']" style="color: #FFC33F">Log in</a>
-        </p>
-      </div>
+    <!-- Botão principal -->
+    <div class="ion-text-center ion-margin-top">
+      <ion-button expand="block" color="primary" shape="round" (click)="signUP()" [disabled]="false">
+        Create Account
+      </ion-button>
     </div>
 
-    <!-- Botão de confirmação -->
-    <ion-fab
-      *ngIf="ionicForm.valid"
-      vertical="bottom"
-      horizontal="end"
-      style="margin-bottom: 30px;">
-      <ion-fab-button (click)="signUP()">
-        <ion-icon name="chevron-forward"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
+    <!-- Social login -->
+    <div class="social-login ion-text-center ion-margin-vertical">
+      <p class="subtitle">Or continue with</p>
+
+      <ion-button expand="block" color="light" shape="round" (click)="signUpWithGoogle()">
+        <ion-icon slot="start" name="logo-google"></ion-icon>
+        Continue with Google
+      </ion-button>
+
+      <ion-button expand="block" color="dark" shape="round" (click)="signUpWithApple()">
+        <ion-icon slot="start" name="logo-apple"></ion-icon>
+        Continue with Apple
+      </ion-button>
+    </div>
+
+    <!-- Link login -->
+    <div class="loginLink ion-text-center">
+      <p>Already a member? <a [routerLink]="['/login']" class="link">Log in</a></p>
+    </div>
+
   </form>
 </ion-content>

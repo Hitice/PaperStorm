@@ -1,13 +1,10 @@
 <ion-content [fullscreen]="true">
-  <ion-title  style="margin-top: 100px;">Almost there</ion-title>
-  <p class="subtitle">Please enter 4 digit code you have recieved for verification</p>
-  <div class="inputfield">
-    <input type="number" maxlength="1" class="input"  />
-    <input type="number" maxlength="1" class="input"  />
-    <input type="number" maxlength="1" class="input"  />
-    <input type="number" maxlength="1" class="input"  />
-  </div>
-  <div class="btnContainer" >
-  <ion-button  shape="round" color="secondary" class="btn" [routerLink]="['/home']">Verify</ion-button>
+  <ion-title style="margin-top: 100px;">Almost there</ion-title>
+  <p class="subtitle">Please confirm your email verification link.</p>
+
+  <div class="btnContainer">
+    <ion-button shape="round" color="secondary" class="btn" (click)="verifyEmail()">
+      Verify Email
+    </ion-button>
   </div>
 </ion-content>

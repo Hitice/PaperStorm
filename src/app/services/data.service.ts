@@ -8,11 +8,7 @@ import { map, switchMap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class DataService {
-
-  constructor(
-    private firestore: AngularFirestore,
-    private auth: AngularFireAuth
-  ) {}
+  constructor(private firestore: AngularFirestore, private auth: AngularFireAuth) {}
 
   addItem(collection: string, data: any): Observable<void> {
     return this.auth.user.pipe(
@@ -25,21 +21,25 @@ export class DataService {
     );
   }
 
-  getItems(collection: string): Observable<any[]> {
-    return this.auth.user.pipe(
-      switchMap(user => {
-        if (!user) throw new Error('User not authenticated');
-        return this.firestore
-          .collection(collection, ref => ref.where('userId', '==', user.uid).orderBy('createdAt', 'desc'))
-          .snapshotChanges()
-          .pipe(map(actions => actions.map(a => ({ id: a.payload.doc.id, ...a.payload.doc.data() }))));
-      })
-    );
-  }
-
-  updateItem(collection: string, id: string, data: any): Observable<void> {
-    return from(this.firestore.collection(collection).doc(id).update({ ...data, updatedAt: new Date() }));
-  }
+getItems(collection: string): Observable<any[]> {
+  return this.auth.user.pipe(
+    switchMap(user => {
+      if (!user) throw new Error('User not authenticated');
+      return this.firestore
+        .collection(collection, ref => ref.where('userId', '==', user.uid).orderBy('createdAt', 'desc'))
+        .snapshotChanges()
+        .pipe(
+          map(actions =>
+            actions.map(a => {
+              const data = a.payload.doc.data() as any; // Cast para evitar erro de tipo
+              const id = a.payload.doc.id;
+              return { id, ...data };
+            })
+          )
+        );
+    })
+  );
+}
 
   deleteItem(collection: string, id: string): Observable<void> {
     return from(this.firestore.collection(collection).doc(id).delete());

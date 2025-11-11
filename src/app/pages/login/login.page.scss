@@ -1,55 +1,154 @@
+.login-page {
+  --background: var(--ion-color-light);
+  padding: 0 16px;
 
-.input{
-    font-weight: 300;
-}
-ion-item {
+  .login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100%;
+  }
+
+  /* Header */
+  .header {
+    margin-top: 80px;
+    margin-bottom: 60px;
+    text-align: center;
+
+    .logo {
+      width: 120px;
+      height: auto;
+      margin-bottom: 16px;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
+      &.animate-fade-in {
+        animation: fadeIn 0.8s ease-in-out;
+      }
+    }
+
+    .title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--ion-color-dark);
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: gray;
+      margin-top: 2px;
+    }
+  }
+
+  /* Inputs */
+  .input-item {
+    ion-input {
+      font-weight: 300;
+    }
+
+    ion-icon {
+      color: var(--ion-color-medium);
+    }
+  }
+
+  ion-item {
     --background: #f1f1f1;
     border-radius: 10px;
     margin-bottom: 16px;
-}
-.header{
-    margin-top: 100px;
-    margin-bottom: 80px;
-    text-align: center;
+  }
 
-    .subtitle{
-        color: gray;
-        font-size: 0.9rem;
-    }
-    .title{
-        font-size: 2rem;
-    }
-}
-.signupLink{
-    display: flex;
-    margin: auto;
-    flex-direction: row;
-    align-content: center;
-    justify-content: center;
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 80%;
-    .p{
-        font-size: 0.9em;
-    }
-    a {
-        text-decoration: none;
-      }
-}
-.forgotpassword{
-    display: flex;
-    justify-content: flex-end;
-    a {
-    font-weight: 400;
-    font-size: 0.8em;
-        text-decoration: none;
-      }
-}
-.errorInput{
+  /* Mensagens de erro */
+  .error-text {
     color: red;
     font-weight: 300;
-    font-size: small;
-    padding-top: -16px;
+    font-size: 0.8rem;
+    margin-top: -8px;
+    display: block;
+  }
+
+  /* Forgot Password */
+  .forgotpassword,
+  .ion-text-right {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-top: 8px;
+
+    a {
+      font-weight: 500;
+      font-size: 0.8rem;
+      color: var(--ion-color-warning);
+      text-decoration: none;
+    }
+  }
+
+  /* Botões */
+  ion-button {
+    --border-radius: 14px;
+    padding: 12px 0;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+
+    &.animate-bounce {
+      animation: bounce 0.6s ease-in-out;
+    }
+  }
+
+  /* Social Login */
+  .social-login {
+    width: 100%;
+    max-width: 320px;
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: var(--ion-color-medium);
+      margin-bottom: 8px;
+    }
+
+    ion-button {
+      margin-bottom: 12px;
+      ion-icon {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+
+  /* Signup link */
+  .signupLink {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+
+    a {
+      color: var(--ion-color-warning);
+      text-decoration: none;
+      font-weight: 500;
+      margin-left: 4px;
+    }
+
+    p {
+      font-size: 0.9rem;
+      margin: 0;
+    }
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 40px;
+    font-size: 0.8rem;
+    color: var(--ion-color-medium);
+    text-align: center;
+  }
+
+  /* Animações */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
 }

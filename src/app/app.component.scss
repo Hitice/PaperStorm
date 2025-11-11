@@ -1,0 +1,19 @@
+ion-toolbar {
+  --background: transparent;
+  --border-color: transparent;
+}
+
+ion-icon {
+  font-size: 1.4rem;
+  transition: transform 0.2s ease;
+}
+ion-icon:active {
+  transform: scale(0.85);
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3rem;
+}
